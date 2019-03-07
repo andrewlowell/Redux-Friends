@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Friendlist from './components/FriendList';
 import { connect } from 'react-redux';
-import { getFriends } from './actions';
+import { getFriends, login, addFriend } from './actions';
+import LoginPage from './components/LoginPage';
 
 class App extends Component {
 
@@ -13,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.props.gettingFriends ? <p>Loading</p> : <Friendlist friends={this.props.friends} />}
+        {this.props.loggedIn ? <Friendlist friends={this.props.friends} addFriend={this.props.addFriend} /> : <LoginPage login={this.props.login} />}
       </div>
     );
   }
@@ -21,6 +22,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
+    loggedIn: state.loggedIn,
     gettingFriends: state.gettingFriends,
     friendsFetched: state.friendsFetched,
     friendsSaved: state.friend,
@@ -34,4 +36,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getFriends })(App);
+export default connect(mapStateToProps, { getFriends, login, addFriend })(App);

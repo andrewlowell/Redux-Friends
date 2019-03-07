@@ -1,5 +1,6 @@
-import { GETTING_FRIENDS, SUCCESS, FAILURE } from "../actions";
+import { GETTING_FRIENDS, ADDING_FRIEND, SUCCESS, FAILURE, LOGIN_SUCCESS } from "../actions";
 const initialState = {
+  loggedIn: false,
   gettingFriends: false,
   friendsFetched: false,
   friendsSaved: false,
@@ -31,6 +32,11 @@ export const reducer = (state = initialState, action) => {
         ...state,
         gettingFriends: true
       }
+    case ADDING_FRIEND:
+      return {
+        ...state,
+        friends: action.payload
+      }
     case SUCCESS:
       return {
         ...state,
@@ -42,6 +48,11 @@ export const reducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         gettingFriends: false
+      }
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        loggedIn: true
       }
     default:
       return state;
